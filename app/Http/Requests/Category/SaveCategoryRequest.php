@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Requests\Category;
+
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\ValidateTargetValueRule;
 
 class SaveCategoryRequest extends FormRequest
 {
@@ -31,7 +31,7 @@ class SaveCategoryRequest extends FormRequest
             'year' => ['required', 'numeric', 'min:1'],
             'facebook_url' => ['required', 'url', 'starts_with:http://facebook.com/', 'regex:/^http:\/\/facebook\.com\/[a-zA-Z0-9_\-]+$/'],
             'file' => ['required', 'mimes:jpg,png', 'max:10000'],
-        ];        
+        ];
     }
 
     public function attributes()
@@ -42,7 +42,7 @@ class SaveCategoryRequest extends FormRequest
             'phone' => 'Số điện thoại',
             'address' => 'Địa chỉ',
             'gender' => 'Giới tính',
-            'member' => 'Member',   
+            'member' => 'Member',
             'year' => 'Year',
             'facebook_url' => 'facebook_url',
         ];
@@ -66,7 +66,7 @@ class SaveCategoryRequest extends FormRequest
             'address.required' => ':attribute không được để trống',
             'address.min' => ':attribute phải chứa ít nhất :min kí tự',
             'address.not_regex' => ':attribute không được chứa kí tự số',
-            
+
             'gender.required' => ':attribute phải được chọn',
             'gender.in' => ':attribute phải là 1 hoặc 2',
 

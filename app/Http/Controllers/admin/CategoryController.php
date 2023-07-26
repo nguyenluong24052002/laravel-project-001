@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index'); 
+        return view('categories.index');
     }
 
     /**
@@ -29,8 +29,9 @@ class CategoryController extends Controller
      */
     public function store(SaveCategoryRequest $request)
     {
-        Storage::disk('public')->put('file.jpg',$request->file);
+        Storage::disk('public')->put('file.jpg', $request->file);
         Storage::disk('public')->url('file.jpg');
+        dd($request)->All();
     }
 
     /**
