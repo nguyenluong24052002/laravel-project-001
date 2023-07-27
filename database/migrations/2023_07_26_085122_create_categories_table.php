@@ -16,15 +16,14 @@ return new class extends Migration
             $table->string('name', 255)->unique();
             $table->string('slug', 255)->unique();
             $table->unsignedInteger('parent')->default(0);
-            $table->unsignedInteger('created_by'); 
-            $table->text('content')->nullable(); 
-            $table->string('meta_tile', 255)->nullable(); 
-            $table->string('meta_desc', 255)->nullable(); 
-            $table->string('meta_keyword', 255)->nullable(); 
+            $table->unsignedInteger('created_by');
+            $table->text('content')->nullable();
+            $table->string('meta_tile', 255)->nullable();
+            $table->string('meta_desc', 255)->nullable();
+            $table->string('meta_keyword', 255)->nullable();
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.

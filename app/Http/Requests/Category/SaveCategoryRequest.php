@@ -29,7 +29,7 @@ class SaveCategoryRequest extends FormRequest
             'gender' => ['required', 'in:1,2'],
             'file' => ['required', 'mimes:jpg,png', 'max:10000'],
         ];
-    
+
         // Kiểm tra nếu người dùng chọn "Cần Thơ" (location = 4), loại bỏ các quy tắc validate cho các trường liên quan
         if ($this->input('location') == 4) {
             unset($rules['member']);
@@ -44,7 +44,6 @@ class SaveCategoryRequest extends FormRequest
 
         return $rules;
     }
-    
 
     public function attributes()
     {
@@ -59,7 +58,7 @@ class SaveCategoryRequest extends FormRequest
             'facebook_url' => 'Facebook URL',
         ];
     }
-    
+
     public function messages()
     {
         return [
@@ -77,5 +76,4 @@ class SaveCategoryRequest extends FormRequest
             'facebook_url.regex' => ':attribute phải là http://facebook.com/xxxxx.',
         ];
     }
-    
 }

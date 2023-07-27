@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('course_id');
             $table->bigInteger('user_id');
-            $table->boolean('paid')->default(false); 
+            $table->boolean('paid')->default(false);
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.

@@ -31,7 +31,8 @@ class CategoryController extends Controller
     {
         Storage::disk('public')->put('file.jpg', $request->file);
         Storage::disk('public')->url('file.jpg');
-        dd($request)->All();
+
+        return 'upload thành công';
     }
 
     /**
