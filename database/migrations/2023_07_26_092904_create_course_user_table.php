@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('course_user', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('course_id');
+            $table->bigInteger('user_id');
+            $table->boolean('paid')->default(false);
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('course_user');
     }
 };
