@@ -21,18 +21,30 @@ class SaveCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => ['required', 'min:2', 'max:255'],
             'email' => ['required', 'email', 'min:2', 'max:255'],
             'phone' => ['required', 'regex:/^0\d{9}$/'],
             'address' => ['required', 'min:5', 'not_regex:/^[0-9]+$/'],
             'gender' => ['required', 'in:1,2'],
-            'member' => ['required', 'numeric', 'min:2'],
-            'year' => ['required', 'numeric', 'min:1'],
-            'facebook_url' => ['required', 'url', 'starts_with:http://facebook.com/', 'regex:/^http:\/\/facebook\.com\/[a-zA-Z0-9_\-]+$/'],
             'file' => ['required', 'mimes:jpg,png', 'max:10000'],
         ];
+    
+        // Kiểm tra nếu người dùng chọn "Cần Thơ" (location = 4), loại bỏ các quy tắc validate cho các trường liên quan
+        if ($this->input('location') == 4) {
+            unset($rules['member']);
+            unset($rules['year']);
+            unset($rules['facebook_url']);
+        } else {
+            // Nếu người dùng không chọn "Cần Thơ", thêm các quy tắc validate cho các trường liên quan
+            $rules['member'] = ['required', 'numeric', 'min:2'];
+            $rules['year'] = ['required', 'numeric', 'min:1'];
+            $rules['facebook_url'] = ['required', 'url', 'starts_with:http://facebook.com/', 'regex:/^http:\/\/facebook\.com\/[a-zA-Z0-9_\-]+$/'];
+        }
+
+        return $rules;
     }
+    
 
     public function attributes()
     {

@@ -68,29 +68,31 @@
                 @enderror
             </div>
         
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Localtions</label><br>    
-                <label>
-                    <input type="radio" name="localtion" value="1" onclick="toggleDetailInfo(1)" {{ old('localtion') == 1 ? 'checked' : '' }}>
-                    Hà Nội
-                </label>
-                <label>
-                    <input type="radio" name="localtion" value="2" onclick="toggleDetailInfo(2)" {{ old('localtion') == 2 ? 'checked' : '' }}>
-                    HCM
-                </label>
-                <label>
-                    <input type="radio" name="localtion" value="3" onclick="toggleDetailInfo(3)" {{ old('localtion') == 3 ? 'checked' : '' }}>
-                    Đà Nẵng
-                </label>
-                <label>
-                    <input type="radio" name="localtion" value="4" onclick="toggleDetailInfo(4)" {{ old('localtion') == 4 ? 'checked' : '' }}>
-                    Cần Thơ
-                </label>
-                @error('location')
-                    <span class="error-message">{{ $message }}</span>
-                @enderror
-            </div>
+<!-- Trường name đã thay đổi tên thành "location" để khớp với hàm rules() -->
+<div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Localtions</label><br>    
+    <label>
+        <input type="radio" name="location" value="1" onclick="toggleDetailInfo(1)" {{ old('location') == 1 ? 'checked' : '' }}>
+        Hà Nội
+    </label>
+    <label>
+        <input type="radio" name="location" value="2" onclick="toggleDetailInfo(2)" {{ old('location') == 2 ? 'checked' : '' }}>
+        HCM
+    </label>
+    <label>
+        <input type="radio" name="location" value="3" onclick="toggleDetailInfo(3)" {{ old('location') == 3 ? 'checked' : '' }}>
+        Đà Nẵng
+    </label>
+    <label>
+        <input type="radio" name="location" value="4" onclick="toggleDetailInfo(4)" {{ old('location') == 4 ? 'checked' : '' }}>
+        Cần Thơ
+    </label>
+    @error('location')
+        <span class="error-message">{{ $message }}</span>
+    @enderror
+</div>
 
+            
             <div class="form-info" id="localtionId" style="display: {{ old('localtion') == 4 ? 'none' : 'block' }}">
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Người phụ thuộc</label>

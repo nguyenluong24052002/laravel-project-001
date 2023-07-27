@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('link');
             $table->decimal('price', $precision = 17, $scale = 2);
             $table->decimal('old_price', $precision = 17, $scale = 2);
-            $table->bigInteger('created_by');
-            $table->bigInteger('category_id');
-            $table->integer('lessons');
-            $table->integer('view_count');
-            $table->json('benefits');
-            $table->json('fqa');
+            $table->bigInteger('created_by')->default(0);
+            $table->bigInteger('category_id')->nullable()->default(0);
+            $table->integer('lessons')->nullable()->default(0);
+            $table->integer('view_count')->nullable()->default(0);
+            $table->json('benefits')->nullable();
+            $table->json('fqa')->nullable()->default(null);
             $table->tinyInteger('is_feature');
             $table->tinyInteger('is_online');
             $table->text('description');
