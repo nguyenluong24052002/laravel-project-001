@@ -62,6 +62,7 @@ class SaveUserRequest extends FormRequest
             'password.required' => 'Vui lòng nhập mật khẩu.',
             'password.min' => 'Mật khẩu phải chứa ít nhất :min ký tự.',
             'password_confirm.same' => 'Xác nhận mật khẩu không khớp.',
+            'password_confirm.required' => 'Vui lòng nhập mật khẩu.',
         ];
     }
 
