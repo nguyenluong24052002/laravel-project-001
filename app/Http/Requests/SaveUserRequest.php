@@ -29,6 +29,7 @@ class SaveUserRequest extends FormRequest
             'address' => ['required'],
             'gender' => ['required', 'in:1,2'],
             'avatar' => ['nullable'],
+            'family_id' => ['required'],
         ];
 
         //Khi thêm mới user
@@ -62,6 +63,7 @@ class SaveUserRequest extends FormRequest
             'password.min' => 'Mật khẩu phải chứa ít nhất :min ký tự.',
             'password_confirm.same' => 'Xác nhận mật khẩu không khớp.',
             'password_confirm.required' => 'Vui lòng nhập mật khẩu.',
+            'family_id.required' => 'Vui lòng thông tin.',
         ];
     }
 
@@ -74,6 +76,7 @@ class SaveUserRequest extends FormRequest
             'address' => 'Địa chỉ',
             'gender' => 'Giới tính',
             'avatar' => 'Ảnh đại diện',
+            'family_id' => 'Family_id',
             'password' => 'Mật khẩu',
             'password_confirm' => 'Xác nhận mật khẩu',
         ];
