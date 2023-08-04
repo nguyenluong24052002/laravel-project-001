@@ -16,6 +16,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">Avatar</th>
                                 <th scope="col">User Type</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
@@ -29,6 +30,14 @@
                             @foreach ($users as $user)
                             <tr>
                                 <th scope="row">{{ $user->id }}</th>  
+                                <td>
+                                    @if ($user->avatar)
+                                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" style="max-width: 70px; max-height: 70px;">
+                                    @else
+                                         <!-- Nếu người dùng không có avatar, có thể hiển thị 1 ảnh mặc định tại đây  -->
+                                        <img src="{{ asset('path/to/default/avatar.jpg') }}" alt="Default Avatar" style="max-width: 50px; max-height: 50px;">
+                                    @endif
+                                </td>
                                 <td>{{ $user->user_type }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
@@ -37,7 +46,11 @@
                                 <td>{{ $user->gender_label}}</td>
                                 <td>
                                     <a href="{{ route('user.edit', ['user' => $user->id]) }}">Edit</a>
-                                    <a href="{{ route('user.destroy', ['user' => $user->id]) }}">Delete</a>
+                                    <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Bạn có chắc muốn xóa người dùng {{ $user->name }}?')">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

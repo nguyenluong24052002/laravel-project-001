@@ -6,6 +6,8 @@ use App\Http\Requests\SaveUserRequest;
 
 use App\Models\User;
 
+use Illuminate\Support\Facades\Storage;
+
 class UserController extends Controller
 {
     public function index()
@@ -24,8 +26,15 @@ class UserController extends Controller
     {
         $inputs = $request->all();
         $inputs['password'] = bcrypt($request->password);
+    
+        // Xử lý trường avatar
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $inputs['avatar'] = $avatarPath;
+        }
+    
         User::create($inputs);
-        return to_route('user.index');
+        return redirect()->route('user.index');
     }
 
     public function edit($id)
@@ -37,11 +46,27 @@ class UserController extends Controller
 
     public function update(SaveUserRequest $request, $id)
     {   
-        $inputs = array_filter($request->all());
-        if ($request->password) {
-            $inputs['pasword'] = bcrypt($request->password);
+        $user = User::find($id);
+        $inputs = $request->all();
+    
+        if ($request->hasFile('avatar')) {
+            // Xóa avatar cũ nếu tồn tại
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+    
+            // Lưu avatar mới
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $inputs['avatar'] = $avatarPath;
         }
-        User::find($id)->update($inputs);
-        return to_route('user.index');
+    
+        $user->update($inputs);
+        return redirect()->route('user.index');
+    }
+
+    public function destroy($id)
+    {
+        User::findOrFail($id)->delete();
+        return redirect()->route('user.index');
     }
 }
