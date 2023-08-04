@@ -73,6 +73,18 @@
                             </label>
                         </div>
 
+                        <div>
+                            <x-input-label for="family_id" :value="__('Family')" />
+                            <select name="family_id" id="family_id" class="mt-1 block w-full">
+                                <option value="">Select a family</option>
+                                @foreach($families as $family)
+                                    <option value="{{ $family->id }}" {{ old('family_id', $user->family_id ?? null) == $family->id ? 'selected' : '' }}>
+                                        {{ $family->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error class="mt-2" :messages="$errors->get('family_id')" />
+                        </div>
 
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>

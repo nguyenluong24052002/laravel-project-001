@@ -17,9 +17,9 @@ class CourseUserFactory extends Factory
     public function definition()
     {
         return [
-            'course_id' => fake()->numberBetween(1,30),
-            'user_id' => fake()->numberBetween(1,30),
-            'paid' => fake()->numberBetween(1,5)
+            'course_id' => fake()->numberBetween(1, 30),
+            'user_id' => fake()->numberBetween(1, 30),
+            'paid' => fake()->numberBetween(1, 5),
         ];
     }
 }

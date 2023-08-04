@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-use Illuminate\Support\Str;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +23,7 @@ class AttachmentFactory extends Factory
             'attachable_id' => 1,
             'extension' => $this->faker->fileExtension,
             'mime_type' => $this->faker->mimeType,
-            'size' => '10000'
+            'size' => '10000',
         ];
     }
 }

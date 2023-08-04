@@ -24,7 +24,7 @@ class LessonFactory extends Factory
             'video_url' => fake()->url,
             'time' => fake()->time,
             'preview' => fake()->numberBetween(1, 9),
-            'content' => fake()->paragraph
+            'content' => fake()->paragraph,
         ];
     }
 }

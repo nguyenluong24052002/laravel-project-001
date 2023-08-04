@@ -18,7 +18,7 @@ class SectionFactory extends Factory
     {
         return [
             'name' => fake()->name,
-            'course_id' => fake()->numberBetween(1,20)
+            'course_id' => fake()->numberBetween(1, 20),
         ];
     }
 }

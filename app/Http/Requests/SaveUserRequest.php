@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 use Illuminate\Validation\Rule;
 
 class SaveUserRequest extends FormRequest
@@ -29,17 +28,17 @@ class SaveUserRequest extends FormRequest
             'phone' => ['required', 'numeric'],
             'address' => ['required'],
             'gender' => ['required', 'in:1,2'],
-            'avatar' => ['nullable'],        
+            'avatar' => ['nullable'],
         ];
-        
+
         //Khi thêm mới user
-        if(empty($this->user)){ 
+        if (empty($this->user)) {
             $rules['password'] = ['required', 'min:6'];
             $rules['password_confirm'] = ['required', 'same:password'];
         }
 
         //Khi upload user
-        if(!empty($this->user)){
+        if (! empty($this->user)) {
             $rules['password'] = ['nullable', 'min:6'];
             $rules['password_confirm'] = ['nullable', 'same:password'];
         }
@@ -76,7 +75,7 @@ class SaveUserRequest extends FormRequest
             'gender' => 'Giới tính',
             'avatar' => 'Ảnh đại diện',
             'password' => 'Mật khẩu',
-            'password_confirm'  => 'Xác nhận mật khẩu',
+            'password_confirm' => 'Xác nhận mật khẩu',
         ];
     }
 }

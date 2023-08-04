@@ -20,6 +20,7 @@
                                 <th scope="col">User Type</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Family</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Gender</th>
@@ -41,6 +42,7 @@
                                 <td>{{ $user->user_type }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->Family }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->gender_label}}</td>
