@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedBigInteger('family_id')->nullable();
         });
     }
 
@@ -27,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['family_id']);
+        });
     }
 };

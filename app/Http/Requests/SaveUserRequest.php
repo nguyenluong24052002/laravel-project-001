@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 use Illuminate\Validation\Rule;
 
 class SaveUserRequest extends FormRequest
@@ -29,17 +28,18 @@ class SaveUserRequest extends FormRequest
             'phone' => ['required', 'numeric'],
             'address' => ['required'],
             'gender' => ['required', 'in:1,2'],
-            'avatar' => ['nullable'],        
+            'avatar' => ['nullable'],
+            'family_id' => ['required'],
         ];
-        
+
         //Khi thêm mới user
-        if(empty($this->user)){ 
+        if (empty($this->user)) {
             $rules['password'] = ['required', 'min:6'];
             $rules['password_confirm'] = ['required', 'same:password'];
         }
 
         //Khi upload user
-        if(!empty($this->user)){
+        if (! empty($this->user)) {
             $rules['password'] = ['nullable', 'min:6'];
             $rules['password_confirm'] = ['nullable', 'same:password'];
         }
@@ -63,6 +63,7 @@ class SaveUserRequest extends FormRequest
             'password.min' => 'Mật khẩu phải chứa ít nhất :min ký tự.',
             'password_confirm.same' => 'Xác nhận mật khẩu không khớp.',
             'password_confirm.required' => 'Vui lòng nhập mật khẩu.',
+            'family_id.required' => 'Vui lòng thông tin.',
         ];
     }
 
@@ -75,8 +76,9 @@ class SaveUserRequest extends FormRequest
             'address' => 'Địa chỉ',
             'gender' => 'Giới tính',
             'avatar' => 'Ảnh đại diện',
+            'family_id' => 'Family_id',
             'password' => 'Mật khẩu',
-            'password_confirm'  => 'Xác nhận mật khẩu',
+            'password_confirm' => 'Xác nhận mật khẩu',
         ];
     }
 }

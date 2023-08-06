@@ -36,6 +36,7 @@ class User extends Authenticatable
         'address',
         'type',
         'avatar',
+        'family_id',
         'created_at',
         'update_at',
         'delete_at',
@@ -71,7 +72,6 @@ class User extends Authenticatable
         return $this->belongsToMany(course::class);
     }
 
-    
     public function getUserTypeAttribute()
     {
         if ($this->attributes['type'] == static::TYPE['admin']) {
@@ -93,4 +93,8 @@ class User extends Authenticatable
         return null;
     }
 
+    public function family()
+    {
+        return $this->belongsTo(Family::class);
+    }
 }

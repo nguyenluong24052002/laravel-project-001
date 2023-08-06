@@ -22,9 +22,9 @@ class UserFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => bcrypt('password'), 
-            'type' => $this->faker->randomElement([1, 2, 3]), 
-            'deleted_at' => $this->faker->optional()->dateTimeThisYear(),   
+            'password' => bcrypt('password'),
+            'type' => $this->faker->randomElement([1, 2, 3]),
+            'deleted_at' => $this->faker->optional()->dateTimeThisYear(),
             'remember_token' => Str::random(10),
         ];
     }
