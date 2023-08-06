@@ -71,6 +71,11 @@
                             <label>
                                 <input type="file" name="avatar">
                             </label>
+                            <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
+                            @if(!empty($user) && $user->avatar)
+                            <br/> <br/>
+                            <img src="/storage/{{ $user->avatar }}" width="200" />
+                            @endif
                         </div>
 
                         <div>

@@ -32,17 +32,16 @@
                             <tr>
                                 <th scope="row">{{ $user->id }}</th>  
                                 <td>
-                                    @if ($user->avatar)
-                                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" style="max-width: 70px; max-height: 70px;">
+                                    @if (!empty($user->avatar))
+                                        <img src="{{ asset('storage/' . $user->avatar) }}" width="50" alt="Avatar">
                                     @else
-                                         <!-- Nếu người dùng không có avatar, có thể hiển thị 1 ảnh mặc định tại đây  -->
-                                        <img src="{{ asset('path/to/default/avatar.jpg') }}" alt="Default Avatar" style="max-width: 50px; max-height: 50px;">
+                                        No avatar
                                     @endif
                                 </td>
                                 <td>{{ $user->user_type }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->Family }}</td>
+                                <td>{{ $user->family->name ?? 'No family' }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->gender_label}}</td>
