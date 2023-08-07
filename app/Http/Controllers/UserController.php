@@ -2,20 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SaveUserRequest;
+use App\Http\Requests\SaveUserRequest;  
 use App\Models\Family;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('users.index', [
-            'users' => User::get(),
-            'families' => Family::all(), // Thêm biến $families vào view
-        ]);
-    }
+        $query = User::query();
+        $families = Family::all();
+    
+        if (!empty($request->family_id)) {
+            $query->where('family_id', $request->family_id);
+        }
+    
+        if (!empty($request->keyword)) {
+            $keyword = '%' . $request->keyword . '%';
+            $query->where(function ($query) use ($keyword) {
+                $query->orWhere('name', 'like', $keyword)
+                    ->orWhere('email', 'like', $keyword)
+                    ->orWhere('phone', 'like', $keyword);
+            });
+        }
+    
+        $users = $query->paginate(5);
+    
+        return view('users.index', compact('users', 'families'));
+    }    
 
     public function create()
     {
@@ -78,7 +94,7 @@ class UserController extends Controller
             $inputs['family_id'] = $family_id;
         }
 
-        $user->update($inputs);
+        $user->update($inputs);    
 
         return redirect()->route('user.index');
     }

@@ -6,6 +6,19 @@
             </h2>
             <a href="{{ route('user.create') }}">Create new</a>
         </div>
+
+        <div class="form-search">
+            <form action="{{ route('user.index')}}" method="get" class="form-control">
+                <select name="family_id" id="">
+                    <option value="">---</option>
+                    @foreach($families as $family)
+                        <option value="{{ $family->id}}" {{ $family->id == request()->get('family_id') ? 'selected' : '' }}>{{ $family->name}}</option>
+                    @endforeach
+                </select>
+                <input type="text" placeholder="Your keyword" name="keyword" value="{{ request()->get('keyword')}}">
+                <button class="btn btn-primary">Seach</button>
+            </form>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -56,6 +69,9 @@
                             </tr>
                             @endforeach
                         </tbody>
+                        <tr>
+                            <td colspan="5">{{ $users->links() }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>

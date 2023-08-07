@@ -67,7 +67,7 @@ class SaveUserRequest extends FormRequest
         ];
     }
 
-    public function attributes(): array
+    public function attributes(): array 
     {
         return [
             'name' => 'Tên',
