@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Quan hệ với bảng users
+            $table->unsignedBigInteger('user_id');
             $table->string('facebook_url')->nullable();
             $table->string('twitter_url')->nullable();
-            $table->string('instagram_url')->nullable();
-            $table->string('linkedin_url')->nullable();
+            $table->string('youtube_url')->nullable();
+            $table->string('zalo_phone')->nullable();
+            $table->text('other_info')->nullable();
             $table->timestamps();
+
+            // Define foreign key constraint to link profiles with users table
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

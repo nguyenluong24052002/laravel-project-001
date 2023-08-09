@@ -18,13 +18,16 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'phone' => $this->faker->phoneNumber,
             'name' => $this->faker->name,
+            'phone' => $this->faker->unique()->phoneNumber,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-            'type' => $this->faker->randomElement([1, 2, 3]),
-            'deleted_at' => $this->faker->optional()->dateTimeThisYear(),
+            'password' => bcrypt('password'), // Change this to the desired default password
+            'address' => $this->faker->address,
+            'avatar' => 'avatars/default.jpg', // Change this to the path of default avatars
+            'gender' => $this->faker->randomElement([1, 2]),
+            'type' => $this->faker->randomElement([1, 2]),
+            'deleted_at' => null,
             'remember_token' => Str::random(10),
         ];
     }
