@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\NewsRequest;
 use App\Models\News;
 use Illuminate\Http\Request;
-use App\Http\Requests\NewsRequest;  
 
 class NewsController extends Controller
 {
-
     protected $newsModel;
 
     public function __construct(News $newsModel)
@@ -18,17 +18,16 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         $query = $this->newsModel->query(); // Tạo truy vấn
-    
+
         // Xử lý tìm kiếm theo tên (name) nếu có
         if ($name = $request->input('name')) {
             $query->where('name', 'like', "%$name%");
         }
-    
+
         return view('news.index', [
             'news' => $query->paginate(5), // Thực hiện truy vấn phân trang
         ]);
     }
-    
 
     /**
      * Show the form for creating a new resource.
@@ -44,7 +43,7 @@ class NewsController extends Controller
     public function store(NewsRequest $request)
     {
         $this->newsModel->create($request->validated());
-        
+
         return redirect()->route('news.index')->with('success', 'News created successfully.');
     }
 
@@ -59,14 +58,13 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    public function edit($id)
+    {
+        return view('news.form', [
+            'news' => $this->newsModel->find($id),
+        ]);
+    }
 
-     public function edit($id)
-     {
-         return view('news.form',  [
-            'news' => $this->newsModel->find($id)
-         ]);
-     }
-    
     /**
      * Update the specified resource in storage.
      */

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class News extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'name',
         'start_at',

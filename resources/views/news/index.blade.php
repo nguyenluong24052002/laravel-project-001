@@ -32,11 +32,11 @@
         }
     </style>
     @endpush
-    
+
     <x-slot name="header">
         <div class="toolbar" style="display: flex; justify-content:space-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('News list') }}
+                {{ __('News List') }}
             </h2>
             <a href="{{ route('news.create') }}">Create new</a>
         </div>

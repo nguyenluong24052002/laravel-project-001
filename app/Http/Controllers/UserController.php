@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SaveUserRequest;  
+use App\Http\Requests\SaveUserRequest;
 use App\Models\Family;
-use App\Models\User;
 use App\Models\Profile;
-use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
     protected $familyModel;
+
     protected $userModel;
+
     protected $profileModel;
 
     public function __construct(Family $family, User $user, Profile $profile)
@@ -26,24 +28,24 @@ class UserController extends Controller
     {
         $query = $this->userModel->query();
         $families = $this->familyModel->all();
-    
-        if (!empty($request->family_id)) {
+
+        if (! empty($request->family_id)) {
             $query->where('family_id', $request->family_id);
         }
-    
-        if (!empty($request->keyword)) {
-            $keyword = '%' . $request->keyword . '%';
+
+        if (! empty($request->keyword)) {
+            $keyword = '%'.$request->keyword.'%';
             $query->where(function ($query) use ($keyword) {
                 $query->orWhere('name', 'like', $keyword)
                     ->orWhere('email', 'like', $keyword)
                     ->orWhere('phone', 'like', $keyword);
             });
         }
-    
+
         $users = $query->paginate(5);
-    
+
         return view('users.index', compact('users', 'families'));
-    }    
+    }
 
     public function create()
     {
@@ -101,27 +103,27 @@ class UserController extends Controller
     {
         $user = $this->userModel->find($id);
         $inputs = $request->all();
-    
+
         if ($request->hasFile('avatar')) {
             // Xóa avatar cũ nếu tồn tại
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
             }
-    
+
             // Lưu avatar mới
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
             $inputs['avatar'] = $avatarPath;
         }
-    
+
         // Lưu trường family_name vào bảng families và gán family_id cho người dùng
         if ($request->has('family_name')) {
             $family = $this->familyModel->create(['name' => $request->family_name]);
             $family_id = $family->id; // Lấy id của gia đình mới được tạo
             $inputs['family_id'] = $family_id;
         }
-    
+
         $user->update($inputs);
-    
+
         // Kiểm tra xem có nhập thông tin profile hay không
         if ($request->filled('facebook_url') || $request->filled('twitter_url') || $request->filled('youtube_url') || $request->filled('zalo_phone') || $request->filled('other_info')) {
             // Nếu có nhập thông tin profile
@@ -151,10 +153,10 @@ class UserController extends Controller
             // Nếu không nhập thông tin profile và user đã có profile, xóa profile
             $user->profile->delete();
         }
-    
+
         return redirect()->route('user.index');
     }
-    
+
     public function destroy($id)
     {
         $this->userModel->findOrFail($id)->delete();
