@@ -71,6 +71,11 @@
                             <label>
                                 <input type="file" name="avatar">
                             </label>
+                            <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
+                            @if(!empty($user) && $user->avatar)
+                            <br/> <br/>
+                            <img src="/storage/{{ $user->avatar }}" width="200" />
+                            @endif
                         </div>
 
                         <div>
@@ -85,6 +90,50 @@
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('family_id')" />
                         </div>
+
+                        <div class="flex items-center gap-4">
+                            <button id="editSocialLinksBtn" class="btn btn-primary" type="button">{{ __('Edit Social Links') }}</button>
+                        </div>
+
+                        <div id="socialLinksForm" style="display: none;">
+                            <div>
+                                <x-input-label for="facebook_url" :value="__('Facebook URL')" />
+                                <x-text-input id="facebook_url" name="facebook_url" type="text" class="mt-1 block w-full" :value="old('facebook_url', $user->profile->facebook_url ?? null)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('facebook_url')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="twitter_url" :value="__('Twitter URL')" />
+                                <x-text-input id="twitter_url" name="twitter_url" type="text" class="mt-1 block w-full" :value="old('twitter_url', $user->profile->twitter_url ?? null)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('twitter_url')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="youtube_url" :value="__('Youtube URL')" />
+                                <x-text-input id="youtube_url" name="youtube_url" type="text" class="mt-1 block w-full" :value="old('youtube_url', $user->profile->youtube_url ?? null)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('youtube_url')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="zalo_phone" :value="__('Zalo Phone')" />
+                                <x-text-input id="zalo_phone" name="zalo_phone" type="text" class="mt-1 block w-full" :value="old('zalo_phone', $user->profile->zalo_phone ?? null)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('zalo_phone')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="other_info" :value="__('Other Info')" />
+                                <textarea id="other_info" name="other_info" class="mt-1 block w-full">{{ old('other_info', $user->profile->other_info ?? '') }}</textarea>
+                                <x-input-error class="mt-2" :messages="$errors->get('other_info')" />
+                            </div>
+                        </div>
+
+                        <script>
+                            document.getElementById("editSocialLinksBtn").addEventListener("click", function() {
+                                var socialLinksForm = document.getElementById("socialLinksForm");
+                                socialLinksForm.style.display = socialLinksForm.style.display === "none" ? "block" : "none";
+                            });
+                        </script>
+
 
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>

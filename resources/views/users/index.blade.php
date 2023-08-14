@@ -1,4 +1,17 @@
 <x-app-layout>
+<style>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        padding: 8px;
+        border: 1px solid #ddd; 
+        text-align: left; 
+    }
+</style>
     <x-slot name="header">
         <div class="toolbar" style="display: flex; justify-content:space-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -7,14 +20,25 @@
             <a href="{{ route('user.create') }}">Create new</a>
         </div>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="form-search">
+                <form action="{{ route('user.index')}}" method="get" class="form-control">
+                    <select name="family_id" id="">
+                        <option value="">---</option>
+                        @foreach($families as $family)
+                            <option value="{{ $family->id}}" {{ $family->id == request()->get('family_id') ? 'selected' : '' }}>{{ $family->name}}</option>
+                        @endforeach
+                    </select>
+                    <input type="text" placeholder="Your keyword" name="keyword" value="{{ request()->get('keyword')}}">
+                    <button class="btn btn-primary">Seach</button>
+                </form>
+            </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <table class="table">
                         <thead>
-                            <tr>
+                            <tr class="">
                                 <th scope="col">ID</th>
                                 <th scope="col">Avatar</th>
                                 <th scope="col">User Type</th>
@@ -24,6 +48,7 @@
                                 <th scope="col">Phone</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Gender</th>
+                                <th scope="col">Profile</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -32,20 +57,28 @@
                             <tr>
                                 <th scope="row">{{ $user->id }}</th>  
                                 <td>
-                                    @if ($user->avatar)
-                                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" style="max-width: 70px; max-height: 70px;">
+                                    @if (!empty($user->avatar))
+                                        <img src="{{ asset('storage/' . $user->avatar) }}" width="50" alt="Avatar">
                                     @else
-                                         <!-- Nếu người dùng không có avatar, có thể hiển thị 1 ảnh mặc định tại đây  -->
-                                        <img src="{{ asset('path/to/default/avatar.jpg') }}" alt="Default Avatar" style="max-width: 50px; max-height: 50px;">
+                                        No avatar
                                     @endif
                                 </td>
                                 <td>{{ $user->user_type }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->Family }}</td>
+                                <td>{{ $user->family->name ?? 'No family' }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->gender_label}}</td>
+                                <td>
+                                    <ul>
+                                        <li><strong>Facebook:</strong> {{ $user->profile->facebook_url ?? '' }}</li>
+                                        <li><strong>Twitter:</strong> {{ $user->profile->twitter_url ?? '' }}</li>
+                                        <li><strong>Youtube:</strong> {{ $user->profile->youtube_url ?? '' }}</li>
+                                        <li><strong>Zalo Phone:</strong> {{ $user->profile->zalo_phone ?? '' }}</li>
+                                        <li><strong>Other Info:</strong> {{ $user->profile->other_info ?? '' }}</li>
+                                    </ul>
+                                </td>
                                 <td>
                                     <a href="{{ route('user.edit', ['user' => $user->id]) }}">Edit</a>
                                     <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
@@ -57,6 +90,9 @@
                             </tr>
                             @endforeach
                         </tbody>
+                        <tr>
+                            <td colspan="5">{{ $users->links() }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>

@@ -27,9 +27,14 @@ class SaveUserRequest extends FormRequest
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->user)],
             'phone' => ['required', 'numeric'],
             'address' => ['required'],
+            'family_id' => ['required'],
             'gender' => ['required', 'in:1,2'],
             'avatar' => ['nullable'],
-            'family_id' => ['required'],
+            'facebook_url' => ['nullable', 'url'],
+            'twitter_url' => ['nullable', 'url'],
+            'youtube_url' => ['nullable', 'url'],
+            'zalo_phone' => ['nullable', 'numeric'],
+            'other_info' => ['nullable'],
         ];
 
         //Khi thêm mới user
@@ -63,11 +68,15 @@ class SaveUserRequest extends FormRequest
             'password.min' => 'Mật khẩu phải chứa ít nhất :min ký tự.',
             'password_confirm.same' => 'Xác nhận mật khẩu không khớp.',
             'password_confirm.required' => 'Vui lòng nhập mật khẩu.',
-            'family_id.required' => 'Vui lòng thông tin.',
+            'family_id.required' => 'Vui lòng chọn family.',
+            'facebook_url.url' => 'Facebook URL không hợp lệ.',
+            'twitter_url.url' => 'Twitter URL không hợp lệ.',
+            'youtube_url.url' => 'Youtube URL không hợp lệ.',
+            'zalo_phone.numeric' => 'Zalo Phone phải là số.',
         ];
     }
 
-    public function attributes(): array
+    public function attributes(): array 
     {
         return [
             'name' => 'Tên',
@@ -75,10 +84,15 @@ class SaveUserRequest extends FormRequest
             'phone' => 'Số điện thoại',
             'address' => 'Địa chỉ',
             'gender' => 'Giới tính',
+            'family_id' => 'Family',
             'avatar' => 'Ảnh đại diện',
-            'family_id' => 'Family_id',
             'password' => 'Mật khẩu',
             'password_confirm' => 'Xác nhận mật khẩu',
+            'facebook_url' => 'Facebook URL',
+            'twitter_url' => 'Twitter URL',
+            'youtube_url' => 'Youtube URL',
+            'zalo_phone' => 'Zalo Phone',
+            'other_info' => 'Other Info',
         ];
     }
 }
