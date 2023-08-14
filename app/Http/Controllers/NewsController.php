@@ -18,17 +18,14 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         $query = $this->newsModel->query(); // Tạo truy vấn
-
+    
         // Xử lý tìm kiếm theo tên (name) nếu có
-        if ($request->has('name')) {
-            $name = $request->input('name');
+        if ($name = $request->input('name')) {
             $query->where('name', 'like', "%$name%");
         }
-
-        $news = $query->paginate(5); // Thực hiện truy vấn phân trang
     
         return view('news.index', [
-            'news' => $news
+            'news' => $query->paginate(5), // Thực hiện truy vấn phân trang
         ]);
     }
     
@@ -46,10 +43,8 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request)
     {
-        $data = $request->validated(); // Lấy dữ liệu đã được kiểm tra và hợp lệ từ request
-
-        $this->newsModel->create($data);
-
+        $this->newsModel->create($request->validated());
+        
         return redirect()->route('news.index')->with('success', 'News created successfully.');
     }
 

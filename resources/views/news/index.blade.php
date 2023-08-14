@@ -1,19 +1,38 @@
 <x-app-layout>
-<style>
-    /* CSS cho bảng */
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+    @push('styles')
+    <style>
+        /* CSS cho bảng */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    /* CSS cho các ô trong bảng */
-    .table th,
-    .table td {
-        padding: 8px; /* Điều chỉnh padding cho ô */
-        border: 1px solid #ddd; /* Điều chỉnh đường viền */
-        text-align: left; /* Căn lề văn bản */
-    }
-</style>
+        /* CSS cho các ô trong bảng */
+        .table th,
+        .table td {
+            padding: 8px; /* Điều chỉnh padding cho ô */
+            border: 1px solid #ddd; /* Điều chỉnh đường viền */
+            text-align: left; /* Căn lề văn bản */
+        }
+
+        /* CSS cho form tìm kiếm */
+        .form-search {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .form-search input[type="text"] {
+            padding: 5px;
+        }
+
+        .form-search button {
+            margin-left: 10px;
+        }
+    </style>
+    @endpush
+    
     <x-slot name="header">
         <div class="toolbar" style="display: flex; justify-content:space-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">

@@ -43,4 +43,4 @@ class NewsRequest extends FormRequest
             'is_suspended.boolean' => 'Trường trạng thái đình chỉ phải là true hoặc false.',
         ];
     }
-}   
+}
