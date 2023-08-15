@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class News extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'facebook_url', 'twitter_url', 'youtube_url', 'zalo_phone', 'other_info',
+        'name',
+        'start_at',
+        'end_at',
+        'is_suspended',
+        'user_id',
     ];
 
     public function user()
