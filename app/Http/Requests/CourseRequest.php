@@ -22,7 +22,7 @@ class CourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:courses',
             'slug' => 'required|string|unique:courses',
             'link' => 'required|url',
             'price' => 'required|numeric|min:0',
@@ -47,6 +47,7 @@ class CourseRequest extends FormRequest
     {
         return [
             'name.required' => 'Trường tên là bắt buộc.',
+            'name.unique' => 'Tên đã tồn tại.',
             'slug.required' => 'Trường slug là bắt buộc.',
             'slug.unique' => 'Slug đã tồn tại.',
             'link.required' => 'Trường link là bắt buộc.',
